@@ -1177,6 +1177,11 @@ map.createPane('rings').style.zIndex = 402; map.getPane('rings').style.pointerEv
     L.marker([c.lat + r * Math.cos(b) / 111320, c.lon + r * Math.sin(b) / (111320 * Math.cos(c.lat * Math.PI / 180))], { pane: 'dlabels', interactive: false, keyboard: false,
       icon: L.divIcon({ className: '', html: `<span class="ringlab">${txt}</span>`, iconSize: [0, 0] }) }).addTo(groups.rings);
   });
+  /* Current Sunrise: one faint light-blue mile (Michael, Oct. 25) */
+  const cs = D.pins.find(x => x.id === 'svc-current-sunrise'), r1 = MI, b1 = 225 * Math.PI / 180;
+  L.circle([cs.lat, cs.lon], { pane: 'rings', radius: r1, color: '#5a9fd4', weight: 1.4, opacity: .6, fill: false, interactive: false }).addTo(groups.rings);
+  L.marker([cs.lat + r1 * Math.cos(b1) / 111320, cs.lon + r1 * Math.sin(b1) / (111320 * Math.cos(cs.lat * Math.PI / 180))], { pane: 'dlabels', interactive: false, keyboard: false,
+    icon: L.divIcon({ className: '', html: '<span class="ringlab" style="color:#2f6ea3">1 mile</span>', iconSize: [0, 0] }) }).addTo(groups.rings);
 })();
 
 /* open and undeveloped land (City Land Use Inventory): pale, dashed, under the parks */
@@ -1350,7 +1355,7 @@ const KEY = [
   ['atc', '<span class="m-atc"></span>', 'Austin Transitional Center', 'State halfway house'],
   ['schools', '<svg class="m-star" style="width:20px;height:20px" viewBox="-12 -12 24 24" aria-hidden="true"><path d="M0,-10.5 L2.47,-3.4 L9.99,-3.24 L4,1.3 L6.17,8.5 L0,4.2 L-6.17,8.5 L-4,1.3 L-9.99,-3.24 L-2.47,-3.4Z" fill="#ffffff" stroke="#8e8171" stroke-width="1.6" stroke-linejoin="round"/></svg>', 'Selected schools', 'Austin ISD campuses near Current and New Sunrise'],
   ['parks', '<span style="display:block;width:16px;height:12px;background:#a9c08f;border:1.5px solid #5f7d4f;border-radius:3px"></span>', 'Parks and greenbelts', 'City parks in District 3 and next to New Sunrise'],
-  ['rings', '<svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#b5532b" stroke-opacity=".5"/><circle r="5" fill="none" stroke="#b5532b" stroke-opacity=".75"/></svg>', 'Distance from New Sunrise', '1 mi and 2 mi radius'],
+  ['rings', '<svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#b5532b" stroke-opacity=".5"/><circle r="5" fill="none" stroke="#b5532b" stroke-opacity=".75"/><circle r="7.5" cx="3" cy="3" fill="none" stroke="#5a9fd4" stroke-opacity=".8"/></svg>', 'Distance from the Sunrise sites', 'Rust: 1 mi and 2 mi from New Sunrise. Light blue: 1 mi from Current Sunrise'],
   ['openland', '<span style="display:block;width:16px;height:12px;background:#c9d6b4;border:1.2px dashed #8fa37a;border-radius:2px"></span>', 'Open and undeveloped land', 'District 3 parcels over 1 acre the City classifies as undeveloped or open space'],
   ['southbridge', '<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><path d="M1 9 Q11 0 21 6" fill="none" stroke="#c98a69" stroke-width="2"/></svg>', 'The Southbridge move (2019)', '1112 W Ben White to S IH-35'],
   ['sunrise', '<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><path d="M1 9 Q11 0 21 6" fill="none" stroke="#b5532b" stroke-width="2.7"/></svg>', 'The Sunrise move (2027)', 'Menchaca Rd to 2401 S IH-35'],
