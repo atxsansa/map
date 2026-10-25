@@ -1163,8 +1163,8 @@ const groups = { openland: L.layerGroup(), quotes: L.layerGroup(), schools: L.la
 map.createPane('rings').style.zIndex = 402; map.getPane('rings').style.pointerEvents = 'none';
 (() => {
   const c = D.pins.find(x => x.id === 'new-sunrise'), MI = 1609.344, RB = 45;   // label bearing, degrees clockwise from north
-  [[.5, '½ mile', .30, .85], [1, '1 mile', .16, .65], [2, '2 miles', .07, .5], [2.5, '2½ miles', 0, .4]].forEach(([mi, txt, fo, so]) => {
-    L.circle([c.lat, c.lon], { pane: 'rings', radius: mi * MI, color: '#b5532b', weight: 1.4, opacity: so, fillColor: '#b5532b', fillOpacity: fo, fill: fo > 0, interactive: false }).addTo(groups.rings);
+  [[.5, '½ mile', .30, .85], [1, '1 mile', .16, .65], [2, '2 miles', .07, .5]].forEach(([mi, txt, fo, so]) => {
+    L.circle([c.lat, c.lon], { pane: 'rings', radius: mi * MI, color: '#b5532b', weight: 1.4, opacity: so, fillColor: '#b5532b', fillOpacity: fo, interactive: false }).addTo(groups.rings);
     const r = mi * MI, b = RB * Math.PI / 180;
     L.marker([c.lat + r * Math.cos(b) / 111320, c.lon + r * Math.sin(b) / (111320 * Math.cos(c.lat * Math.PI / 180))], { pane: 'dlabels', interactive: false, keyboard: false,
       icon: L.divIcon({ className: '', html: `<span class="ringlab">${txt}</span>`, iconSize: [0, 0] }) }).addTo(groups.rings);
@@ -1342,7 +1342,7 @@ const KEY = [
   ['atc', '<span class="m-atc"></span>', 'Austin Transitional Center', 'State halfway house'],
   ['schools', '<svg class="m-star" style="width:20px;height:20px" viewBox="-12 -12 24 24" aria-hidden="true"><path d="M0,-10.5 L2.47,-3.4 L9.99,-3.24 L4,1.3 L6.17,8.5 L0,4.2 L-6.17,8.5 L-4,1.3 L-9.99,-3.24 L-2.47,-3.4Z" fill="#ffffff" stroke="#8e8171" stroke-width="1.6" stroke-linejoin="round"/></svg>', 'Selected schools', 'Austin ISD campuses near Current and New Sunrise'],
   ['parks', '<span style="display:block;width:16px;height:12px;background:#a9c08f;border:1.5px solid #5f7d4f;border-radius:3px"></span>', 'Parks and greenbelts', 'City parks in District 3 and next to New Sunrise'],
-  ['rings', '<svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="#b5532b" fill-opacity=".07" stroke="#b5532b" stroke-opacity=".5"/><circle r="6.5" fill="#b5532b" fill-opacity=".16" stroke="#b5532b" stroke-opacity=".65"/><circle r="3.2" fill="#b5532b" fill-opacity=".3" stroke="#b5532b" stroke-opacity=".85"/></svg>', 'Distance from New Sunrise', 'Rings at ½, 1, 2 and 2½ miles, straight line from the 2401 S IH-35 pin'],
+  ['rings', '<svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="#b5532b" fill-opacity=".07" stroke="#b5532b" stroke-opacity=".5"/><circle r="6.5" fill="#b5532b" fill-opacity=".16" stroke="#b5532b" stroke-opacity=".65"/><circle r="3.2" fill="#b5532b" fill-opacity=".3" stroke="#b5532b" stroke-opacity=".85"/></svg>', 'Distance from New Sunrise', 'Rings at ½, 1 and 2 miles, straight line from the 2401 S IH-35 pin'],
   ['openland', '<span style="display:block;width:16px;height:12px;background:#c9d6b4;border:1.2px dashed #8fa37a;border-radius:2px"></span>', 'Open and undeveloped land', 'District 3 parcels over 1 acre the City classifies as undeveloped or open space'],
   ['southbridge', '<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><path d="M1 9 Q11 0 21 6" fill="none" stroke="#c98a69" stroke-width="3"/></svg>', 'The Southbridge move (2019)', '1112 W Ben White to S IH-35'],
   ['sunrise', '<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><path d="M1 9 Q11 0 21 6" fill="none" stroke="#b5532b" stroke-width="4"/></svg>', 'The Sunrise move (2027)', 'Menchaca Rd to 2401 S IH-35'],
