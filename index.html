@@ -1293,10 +1293,10 @@ function arc(a, b, bend, t1 = 1) {
   return pts;
 }
 const MOVES = {
-  sunrise: { from: 'svc-current-sunrise', to: 'new-sunrise', bend: 0.4, end: 0.93, color: '#b5532b', w: 6, title: 'The Sunrise move',
+  sunrise: { from: 'svc-current-sunrise', to: 'new-sunrise', bend: 0.4, end: 0.93, color: '#b5532b', w: 4, title: 'The Sunrise move',
     text: 'Sunrise is moving from Current Sunrise, 4430 Menchaca Rd (District 5), to New Sunrise, 2401 S IH-35 (District 3), which the City plans to open in summer 2027. Sunrise is the City’s presumptive operator of the new center.',
     src: [['Community Impact, Sept. 3, 2025', 'ci'], ['City of Austin news release, Sept. 3, 2025', 'rel'], ['City of Austin, SpeakUp Austin', 'speak']] },
-  southbridge: { from: 'southbridge-original', to: 'sh-southbridge', bend: -0.45, end: 0.95, color: '#c98a69', w: 4.5, title: 'The Southbridge move, 2019',
+  southbridge: { from: 'southbridge-original', to: 'sh-southbridge', bend: -0.45, end: 0.95, color: '#c98a69', w: 3, title: 'The Southbridge move, 2019',
     text: 'Council approved 1112 W Ben White Blvd (District 5) for a 100-bed shelter on June 20, 2019. After neighbors objected, it approved the Rodeway Inn near Oltorf and I-35, now the Southbridge Shelter (District 3), on Nov. 14, 2019.',
     src: [['KUT, June 20, 2019', 'k1'], ['KUT, Nov. 12, 2019', 'k2'], ['KUT, Nov. 14, 2019', 'k3']] },
 };
@@ -1344,8 +1344,8 @@ const KEY = [
   ['parks', '<span style="display:block;width:16px;height:12px;background:#a9c08f;border:1.5px solid #5f7d4f;border-radius:3px"></span>', 'Parks and greenbelts', 'City parks in District 3 and next to New Sunrise'],
   ['rings', '<svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#b5532b" stroke-opacity=".5"/><circle r="5" fill="none" stroke="#b5532b" stroke-opacity=".75"/></svg>', 'Distance from New Sunrise', 'Rings at 1 and 2 miles, straight line from the 2401 S IH-35 pin'],
   ['openland', '<span style="display:block;width:16px;height:12px;background:#c9d6b4;border:1.2px dashed #8fa37a;border-radius:2px"></span>', 'Open and undeveloped land', 'District 3 parcels over 1 acre the City classifies as undeveloped or open space'],
-  ['southbridge', '<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><path d="M1 9 Q11 0 21 6" fill="none" stroke="#c98a69" stroke-width="3"/></svg>', 'The Southbridge move (2019)', '1112 W Ben White to S IH-35'],
-  ['sunrise', '<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><path d="M1 9 Q11 0 21 6" fill="none" stroke="#b5532b" stroke-width="4"/></svg>', 'The Sunrise move (2027)', 'Menchaca Rd to 2401 S IH-35'],
+  ['southbridge', '<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><path d="M1 9 Q11 0 21 6" fill="none" stroke="#c98a69" stroke-width="2"/></svg>', 'The Southbridge move (2019)', '1112 W Ben White to S IH-35'],
+  ['sunrise', '<svg width="22" height="12" viewBox="0 0 22 12" aria-hidden="true"><path d="M1 9 Q11 0 21 6" fill="none" stroke="#b5532b" stroke-width="2.7"/></svg>', 'The Sunrise move (2027)', 'Menchaca Rd to 2401 S IH-35'],
   ['quotes', '<span style="font-family:var(--display);font-weight:700;font-size:26px;line-height:.6;color:var(--ink)">“</span>', 'Quotes', 'What others have said on concentration'],
 ];
 const OFF_AT_START = new Set(['openland']);   // open and undeveloped land starts hidden (Michael, Oct. 21)
