@@ -1107,7 +1107,7 @@ function districtHtml(d) {
     <p class="src">Boundaries: ${SRC('City of Austin council districts', D.links.districts)}. Population: City of Austin Planning, 2024 estimates. Income and poverty: American Community Survey, 2020–2024 five-year estimates (Austin-wide figures: 2024 one-year estimates). Low or moderate income: U.S. Department of Housing and Urban Development, Low- and Moderate-Income Summary Data, 2016–2020. All as published in ${SRC('City of Austin, 2026 Demographic Profiles', D.links.pop)}. Bed totals: sum of the shelter pins in the district; each pin lists its source.</p></div>`;
 }
 const dLayers = {};
-const D3LAB = [30.2262, -97.6455];   // below the river bend, left of D3's east tip (Michael, Oct. 21), so it shows in the D3 view
+const D3LAB = [30.2262, -97.62608];   // below the river bend, left of D3's east tip (Michael, Oct. 21), so it shows in the D3 view
 D.districts.forEach(x => {
   const base = { color: '#ffffff', weight: 3, fillColor: FILL[x.d] || '#ded4c3', fillOpacity: 1 };
   const hover = FILL[x.d] ? { fillOpacity: .85 } : { fillColor: '#d0c4b0' };
@@ -1124,7 +1124,7 @@ D.districts.forEach(x => {
   const at = x.d === 3 && narrow() ? [30.163, -97.662] : d3east ? D3LAB : x.lab;
   if (x.d === 3 && narrow()) L.polyline([[30.174, -97.664], [30.214, -97.674]], { pane: 'dlabels', color: '#36302a', weight: 2, interactive: false }).addTo(map);
   const lm = L.marker(at, { pane: 'dlabels', interactive: true, keyboard: true, title: `District ${x.d}: zoom in, then select again for details`,
-    icon: L.divIcon({ className: 'dlabel dclick', html: d3east ? `<div style="text-align:left"><span class="${cls}">${txt}</span></div>` : x.d === 5 ? `<div style="text-align:center"><span class="${cls}">${txt}</span></div>` : `<span class="${cls}"${x.beds && FILL[x.d] ? ` style="text-shadow:0 0 2px ${FILL[x.d]},0 0 3px ${FILL[x.d]},0 0 5px ${FILL[x.d]}"` : ''}>${txt}</span>`, iconSize: [160, x.d === 3 ? 74 : 40], iconAnchor: d3east ? [-8, 66] : [80, x.d === 3 ? 22 : 20] }) }).addTo(map);
+    icon: L.divIcon({ className: 'dlabel dclick', html: d3east ? `<div style="text-align:left"><span class="${cls}">${txt}</span></div>` : x.d === 5 ? `<div style="text-align:center"><span class="${cls}">${txt}</span></div>` : `<span class="${cls}"${x.beds && FILL[x.d] ? ` style="text-shadow:0 0 2px ${FILL[x.d]},0 0 3px ${FILL[x.d]},0 0 5px ${FILL[x.d]}"` : ''}>${txt}</span>`, iconSize: [160, x.d === 3 ? 74 : 40], iconAnchor: d3east ? [-5, 66] : [80, x.d === 3 ? 22 : 20] }) }).addTo(map);
   lm.on('click', () => { opener = lm.getElement(); districtClick(x.d); });
   lm.on('keydown', e => { const k = e.originalEvent.key; if (k === 'Enter' || k === ' ') { L.DomEvent.preventDefault(e.originalEvent); lm.fire('click'); } });
 });
@@ -1270,7 +1270,7 @@ D.pins.forEach(p => {
     m.openPopup();
   });
   const hi = !p.label && (p.kind === 'service' || p.kind === 'psh') || p.kind === 'school';   // names shown only when zoomed in close
-  const lab = p.kind === 'shelter' ? `${p.label} · ${fmt(p.beds)}` : p.kind === 'school' ? p.label : (p.label || (hi ? p.name : ''));
+  const lab = p.kind === 'shelter' ? `${p.label}` : p.kind === 'school' ? p.label : (p.label || (hi ? p.name : ''));
   if (lab) {
     const cls = p.id === 'svc-current-sunrise' || p.kind === 'center' ? 'lab lab-rust lab-keep' : p.kind === 'original' ? 'lab lab-lrust' : hi ? 'lab lab-hi' : 'lab';
     const dir = LABELS[p.id] || (p.id === 'svc-current-sunrise' ? 'left' : p.kind === 'center' ? 'right' : p.kind === 'original' ? 'bottom' : 'right');
