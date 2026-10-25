@@ -1044,7 +1044,7 @@ $('#tot').textContent = fmt(TOT) + ' beds and units';
 $('#nsites').textContent = shelters.length;
 const listJoin = a => a.length < 2 ? String(a[0]) : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
 $('#stats').innerHTML = [
-  [Math.round(top3 / TOT * 100) + '%', `of all ${fmt(TOT)} shelter beds and units are in Districts 1, 3 and 9`],
+  [Math.round(top3 / TOT * 100) + '%', `of the City’s ${fmt(TOT)} shelter beds are in Districts 1, 3 and 9`],
   [Math.round(per10k(DI[3].beds, DI[3].pop) / restRate(3)) + '×', `the shelter beds per resident in District 3 as in the rest of Austin (${Math.round(per10k(DI[3].beds, DI[3].pop))} vs. ${Math.round(restRate(3))} per 10,000)`],
   ['2×', `poverty within a 1/2 mi of New Sunrise vs 1/2 mi of Current Sunrise (20.7% vs. 10.0%)`],
   ['0', `shelter beds in Districts ${listJoin(zeroD)}`],
