@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>East Side Shelter Map</title>
-<meta name="description" content="Every shelter bed in Austin, existing and planned, by City council district. A map by the South Austin Neighborhood Safety Alliance.">
+<meta name="description" content="Existing and planned shelter beds in Austin, and relevant facilities. A map by the South Austin Neighborhood Safety Alliance.">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <link rel="canonical" href="https://map.atxsansa.org/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2336302a'/><circle cx='16' cy='14' r='6.5' fill='none' stroke='%23f6f3ec' stroke-width='3'/><path d='M16 21v6' stroke='%23f6f3ec' stroke-width='3' stroke-linecap='round'/></svg>">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="South Austin Neighborhood Safety Alliance">
 <meta property="og:title" content="East Side Shelter Map">
-<meta property="og:description" content="Every shelter bed in Austin, existing and planned, by City council district. A map by the South Austin Neighborhood Safety Alliance.">
+<meta property="og:description" content="Existing and planned shelter beds in Austin, and relevant facilities. A map by the South Austin Neighborhood Safety Alliance.">
 <meta property="og:url" content="https://map.atxsansa.org/">
 <meta property="og:image" content="https://map.atxsansa.org/preview.jpg">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 <meta property="og:image:alt" content="Map of Austin City Council districts showing shelter beds, with District 3 holding 1,130 of the city’s 1,997">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="East Side Shelter Map">
-<meta name="twitter:description" content="Every shelter bed in Austin, existing and planned, by City council district.">
+<meta name="twitter:description" content="Existing and planned shelter beds in Austin, and relevant facilities.">
 <meta name="twitter:image" content="https://map.atxsansa.org/preview.jpg">
 <style>
 /* Leaflet 1.9.4, (c) 2010-2023 Vladimir Agafonkin, (c) 2010-2011 CloudMade. BSD 2-Clause License. */
@@ -745,12 +745,12 @@ html.kbd .leaflet-container:focus-visible{box-shadow:inset 0 0 0 3px var(--focus
 .eyebrow a:hover{color:var(--ink)}
 .eyebrow a:focus-visible{outline:2px solid var(--eyebrow);outline-offset:2px;border-radius:2px}
 h1{font-family:var(--display);font-weight:700;font-size:25px;line-height:1.2;margin:6px 0 8px;text-wrap:balance;color:var(--ink)}
-.lede{margin:0;color:var(--body)}
+.lede{margin:0;color:var(--body);text-wrap:pretty}
 .asof{margin:6px 0 0;font-size:13px;color:var(--muted)}
 .sheet-toggle{display:none}
 
 .stats{display:grid;gap:14px;margin:0;padding:16px 0;border-block:1px solid var(--border)}
-.stat{display:grid;grid-template-columns:74px 1fr;gap:12px;align-items:baseline}
+.stat{display:grid;grid-template-columns:74px 1fr;gap:12px;align-items:center}
 .stat b{font-family:var(--display);font-size:28px;line-height:1;color:var(--blue);font-variant-numeric:tabular-nums}
 .stat span{color:var(--body);font-size:14px}
 
@@ -814,7 +814,7 @@ summary::marker{color:var(--mid)}
 .dl.has{color:var(--ink);border-radius:5px;padding:3px 7px;text-shadow:none;display:inline-block}
 .dl.has:not(.d3){font-size:13.5px;border:1.2px solid var(--ink);background:rgba(255,255,255,.18)}
 .dl.d3{color:#fff;background:var(--dark);border:2px solid var(--ink);border-radius:6px;font-size:13.5px;padding:6px 13px 7px;box-shadow:0 2px 8px rgba(54,48,42,.35)}
-.dl.d3 .d3n{display:block;font-size:23px;line-height:1.08;color:#ff9a4d;letter-spacing:.01em;margin-top:2px}
+.dl.d3 .d3n{display:block;font-size:23px;line-height:1.08;letter-spacing:.01em;margin-top:2px}
 .dl.d3 small{display:block;font-size:11px;font-weight:700;letter-spacing:0;color:#f1e9dc;margin-top:3px}
 .dlabel{pointer-events:none}
 .dlabel.dclick{pointer-events:none}
@@ -937,7 +937,7 @@ html.qm-open{overflow:hidden}
       <button class="colbtn" id="colBtn" type="button" aria-controls="panel" aria-expanded="true" title="Hide this panel">‹ Hide</button>
       <p class="eyebrow"><a href="https://atxsansa.org/" id="homeLink" rel="noopener">South Austin Neighborhood Safety Alliance</a></p>
       <h1><span style="white-space:nowrap">What others refuse…</span><br><span style="white-space:nowrap">…ends up on the East Side</span></h1>
-      <p class="lede">All existing and planned shelter beds in Austin. Select pin or district for details and sources.</p>
+      <p class="lede">Existing and planned shelter beds in Austin, and relevant facilities. Select elements for details and sources.</p>
       <p class="asof">Data as of <span id="asof"></span></p>
       <button class="sheet-toggle" id="sheetToggle" type="button" aria-expanded="false" aria-controls="sheetBody">Key, districts and sources</button>
     </header>
@@ -1124,7 +1124,7 @@ D.districts.forEach(x => {
   const at = x.d === 3 && narrow() ? [30.163, -97.662] : d3east ? D3LAB : x.lab;
   if (x.d === 3 && narrow()) L.polyline([[30.174, -97.664], [30.214, -97.674]], { pane: 'dlabels', color: '#36302a', weight: 2, interactive: false }).addTo(map);
   const lm = L.marker(at, { pane: 'dlabels', interactive: true, keyboard: true, title: `District ${x.d}: zoom in, then select again for details`,
-    icon: L.divIcon({ className: 'dlabel dclick', html: d3east ? `<div style="text-align:left"><span class="${cls}">${txt}</span></div>` : x.d === 5 ? `<div style="text-align:center"><span class="${cls}">${txt}</span></div>` : `<span class="${cls}"${x.beds && FILL[x.d] ? ` style="text-shadow:0 0 2px ${FILL[x.d]},0 0 3px ${FILL[x.d]},0 0 5px ${FILL[x.d]}"` : ''}>${txt}</span>`, iconSize: [160, x.d === 3 ? 74 : 40], iconAnchor: d3east ? [-8, 14] : [80, x.d === 3 ? 22 : 20] }) }).addTo(map);
+    icon: L.divIcon({ className: 'dlabel dclick', html: d3east ? `<div style="text-align:left"><span class="${cls}">${txt}</span></div>` : x.d === 5 ? `<div style="text-align:center"><span class="${cls}">${txt}</span></div>` : `<span class="${cls}"${x.beds && FILL[x.d] ? ` style="text-shadow:0 0 2px ${FILL[x.d]},0 0 3px ${FILL[x.d]},0 0 5px ${FILL[x.d]}"` : ''}>${txt}</span>`, iconSize: [160, x.d === 3 ? 74 : 40], iconAnchor: d3east ? [-8, 66] : [80, x.d === 3 ? 22 : 20] }) }).addTo(map);
   lm.on('click', () => { opener = lm.getElement(); districtClick(x.d); });
   lm.on('keydown', e => { const k = e.originalEvent.key; if (k === 'Enter' || k === ' ') { L.DomEvent.preventDefault(e.originalEvent); lm.fire('click'); } });
 });
