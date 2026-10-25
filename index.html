@@ -1385,6 +1385,10 @@ const qtext = s => esc(s).replace(/(\S+-\S+)/g, '<span style="white-space:nowrap
 const cite = q => `${q.cap}${q.url ? ` <a href="${esc(q.url)}" target="_blank" rel="noopener">${esc(q.src)}</a>` : q.src ? ' ' + esc(q.src) : ''}`;
 $('#said').innerHTML = Q.map((q, i) => `<figure class="q" data-q="${i}" tabindex="0" role="button" aria-label="Enlarge this quote and show its source" title="Show the source"><blockquote>“${qtext(q.text)}”</blockquote><figcaption>${cite(q)}</figcaption></figure>`).join('');
 if (!Q.length) document.querySelector('.said').remove();
+// phones: the quotes sit right after the statistics, ahead of the layers; wider windows keep them below the district list
+{ const sec = document.querySelector('.said'), st = document.getElementById('stats'), anchor = document.getElementById('sitelist');
+  const place = () => { if (!sec) return; if (narrow()) st.after(sec); else anchor.before(sec); };
+  place(); addEventListener('resize', place); }
 map.createPane('quotes').style.zIndex = 445;
 const qLayer = groups.quotes;
 let homeZoom = map.getZoom();
