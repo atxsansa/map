@@ -1189,7 +1189,7 @@ map.createPane('rings').style.zIndex = 402; map.getPane('rings').style.pointerEv
 /* Oltorf St overpass at I-35 (between Travis ECHS and New Sunrise): a pale-orange span with the standard bridge symbol, close zoom only (16+), clickable.
    Position: traced Oct. 25, 2026 from the Travis Central Appraisal District map (georeferenced on parcel 287459, 2401 S IH-35; fit within 3 ft), end to end across the I-35 frontage roads,
    and laid exactly on the map's own District 9 / District 3 boundary line, which follows Oltorf here. */
-map.createPane('bridge').style.zIndex = 412;
+map.createPane('bridge').style.zIndex = 425;   // above the I-35 lines (420): the bridge passes over the highway
 (() => {
   const W = L.latLng(30.233877, -97.741944), E = L.latLng(30.233365, -97.740284), mid = L.latLng(30.233621, -97.741114);
   const html = `<div class="pop"><h3 tabindex="-1">Oltorf Street overpass at I-35</h3>
