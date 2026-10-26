@@ -1205,7 +1205,10 @@ map.createPane('bridge').style.zIndex = 425;   // above the I-35 lines (420): th
     icon: L.divIcon({ className: 'pin', html: '<span style="display:block;width:24px;height:24px"></span>', iconSize: [24, 24], iconAnchor: [12, 12], popupAnchor: [0, -10] }) });
   tag.bindPopup(html, { maxWidth: 300, autoPanPadding: [20, 20] });
   hit.bindPopup(html, { maxWidth: 300 }); hit.off('click', hit._openPopup); hit.on('click', e => hit.openPopup(e.latlng));
-  const group = L.layerGroup([...rails, ...rails2, hit, tag]);
+  /* deck: each half of the span is filled with the color of the district it lies in (the span runs along the D9/D3 line), which hides the I-35 lines beneath so the bridge reads as passing over them */
+  const halves = [L.polygon([[0, 0], [0, 0], [0, 0]], { pane: 'bridge', stroke: false, fillColor: FILL[3], fillOpacity: 1, interactive: false }),
+                  L.polygon([[0, 0], [0, 0], [0, 0]], { pane: 'bridge', stroke: false, fillColor: FILL[9], fillOpacity: 1, interactive: false })];
+  const group = L.layerGroup([...halves, ...rails, ...rails2, hit, tag]);
   const draw = () => {
     const P0 = map.latLngToLayerPoint(W), P1 = map.latLngToLayerPoint(E), d = P1.subtract(P0), len = Math.hypot(d.x, d.y) || 1;
     const u = d.divideBy(len), n = L.point(-u.y, u.x);
@@ -1218,6 +1221,8 @@ map.createPane('bridge').style.zIndex = 425;   // above the I-35 lines (420): th
         P1.subtract(u.multiplyBy(fa)).add(off), P1.add(n.multiplyBy(sd * (hw + fn)))].map(ll);
       rails[i].setLatLngs(pts); rails2[i].setLatLngs(pts);
     });
+    [1, -1].forEach((sd, i) => halves[i].setLatLngs([P0, P0.add(n.multiplyBy(sd * (hw + fn))), P0.add(u.multiplyBy(fa)).add(n.multiplyBy(sd * hw)),
+      P1.subtract(u.multiplyBy(fa)).add(n.multiplyBy(sd * hw)), P1.add(n.multiplyBy(sd * (hw + fn))), P1].map(ll)));
     hit.setLatLngs([P0.add(n.multiplyBy(hw + fn)), P1.add(n.multiplyBy(hw + fn)), P1.subtract(n.multiplyBy(hw + fn)), P0.subtract(n.multiplyBy(hw + fn))].map(ll));
   };
   const upd = () => { if (map.getZoom() >= 16) { draw(); groups.schools.addLayer(group); } else groups.schools.removeLayer(group); };
