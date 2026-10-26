@@ -797,6 +797,8 @@ summary::marker{color:var(--mid)}
 .m-svc{display:block;width:15px;height:15px;background:var(--taupe);border:1.5px solid var(--ink)}
 .m-psh{display:block;width:11px;height:11px;background:#fff;border:1.3px solid #8e8171;transform:rotate(45deg)}
 .m-atc{display:block;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:17px solid var(--muted);filter:drop-shadow(0 0 .6px var(--ink))}
+.m-br{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#f7c9a2;border:1.5px solid rgba(255,255,255,.95);box-shadow:0 0 0 1px rgba(54,48,42,.7),0 1px 4px rgba(0,0,0,.3)}
+.m-br svg{width:19px;height:19px;display:block}
 .m-ctr{display:block;width:30px;height:30px;border-radius:50%;border:4.5px solid var(--rust);background:rgba(255,255,255,.4)}
 .m-x{display:block;width:20px;height:20px}
 .sw .m-sh{width:15px;height:15px}
@@ -1182,6 +1184,44 @@ map.createPane('rings').style.zIndex = 402; map.getPane('rings').style.pointerEv
   L.circle([cs.lat, cs.lon], { pane: 'rings', radius: r1, color: '#5a9fd4', weight: 1.4, opacity: .6, fill: false, interactive: false }).addTo(groups.rings);
   L.marker([cs.lat + r1 * Math.cos(b1) / 111320, cs.lon + r1 * Math.sin(b1) / (111320 * Math.cos(cs.lat * Math.PI / 180))], { pane: 'dlabels', interactive: false, keyboard: false,
     icon: L.divIcon({ className: '', html: '<span class="ringlab" style="color:#2f6ea3">1 mile</span>', iconSize: [0, 0] }) }).addTo(groups.rings);
+})();
+
+/* Oltorf St overpass at I-35 (between Travis ECHS and New Sunrise): a pale-orange span with the standard bridge symbol, close zoom only (16+), clickable.
+   Position: traced Oct. 25, 2026 from the Travis Central Appraisal District map (georeferenced on parcel 287459, 2401 S IH-35; fit within 3 ft), end to end across the I-35 frontage roads,
+   and laid exactly on the map's own District 9 / District 3 boundary line, which follows Oltorf here. */
+map.createPane('bridge').style.zIndex = 412;
+(() => {
+  const W = L.latLng(30.233877, -97.741944), E = L.latLng(30.233365, -97.740284), mid = L.latLng(30.233621, -97.741114);
+  const html = `<div class="pop"><h3 tabindex="-1">Oltorf Street overpass at I-35</h3>
+    <p class="note">Oltorf crosses I-35 here, and is the sole route to school for the large majority of Travis Early College High School students, whether by foot or otherwise.</p>
+    <p class="note">The new Sunrise Center and the high school are approximately 600–700 ft apart ‘as the crow flies’.</p></div>`;
+  /* the standard bridge symbol (two parallel rails, ends flaring outward) drawn AS the span: its length is the real span; its width follows the zoom */
+  const mk = () => L.polyline([[0, 0], [0, 0]], { pane: 'bridge', interactive: false, lineCap: 'butt', lineJoin: 'miter' });
+  const rails = [mk(), mk()], rails2 = [mk(), mk()];
+  rails.forEach(l => l.setStyle({ color: '#36302a', weight: 8, opacity: .55 }));
+  rails2.forEach(l => l.setStyle({ color: '#f7c9a2', weight: 5, opacity: 1 }));
+  const hit = L.polygon([[0, 0], [0, 0], [0, 0]], { pane: 'bridge', stroke: false, fillColor: '#000', fillOpacity: 0 });
+  const tag = L.marker(mid, { keyboard: true, title: 'Oltorf Street overpass at I-35: select for details', opacity: 0, zIndexOffset: 170,
+    icon: L.divIcon({ className: 'pin', html: '<span style="display:block;width:24px;height:24px"></span>', iconSize: [24, 24], iconAnchor: [12, 12], popupAnchor: [0, -10] }) });
+  tag.bindPopup(html, { maxWidth: 300, autoPanPadding: [20, 20] });
+  hit.bindPopup(html, { maxWidth: 300 }); hit.off('click', hit._openPopup); hit.on('click', e => hit.openPopup(e.latlng));
+  const group = L.layerGroup([...rails, ...rails2, hit, tag]);
+  const draw = () => {
+    const P0 = map.latLngToLayerPoint(W), P1 = map.latLngToLayerPoint(E), d = P1.subtract(P0), len = Math.hypot(d.x, d.y) || 1;
+    const u = d.divideBy(len), n = L.point(-u.y, u.x);
+    const mpp = 40075016.686 * Math.cos(W.lat * Math.PI / 180) / (256 * Math.pow(2, map.getZoom()));
+    const hw = Math.max(6, Math.min(22, 11 / mpp)), fa = hw * 1.5, fn = hw * 1.7;      // half-width of the deck, flare run along, flare reach out
+    const ll = pt => map.layerPointToLatLng(pt);
+    [1, -1].forEach((sd, i) => {
+      const off = n.multiplyBy(sd * hw), pts = [
+        P0.add(n.multiplyBy(sd * (hw + fn))), P0.add(u.multiplyBy(fa)).add(off),
+        P1.subtract(u.multiplyBy(fa)).add(off), P1.add(n.multiplyBy(sd * (hw + fn)))].map(ll);
+      rails[i].setLatLngs(pts); rails2[i].setLatLngs(pts);
+    });
+    hit.setLatLngs([P0.add(n.multiplyBy(hw + fn)), P1.add(n.multiplyBy(hw + fn)), P1.subtract(n.multiplyBy(hw + fn)), P0.subtract(n.multiplyBy(hw + fn))].map(ll));
+  };
+  const upd = () => { if (map.getZoom() >= 16) { draw(); groups.schools.addLayer(group); } else groups.schools.removeLayer(group); };
+  map.on('zoomend', upd); upd();
 })();
 
 /* open and undeveloped land (City Land Use Inventory): pale, dashed, under the parks */
