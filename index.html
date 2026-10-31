@@ -1401,7 +1401,7 @@ const KEY = [
   ['service', '<span class="m-svc"></span>', 'Service site', 'Including four housing and services access points'],
   ['psh', '<span class="m-psh"></span>', 'Supportive housing', 'Buildings more than half supportive housing'],
   ['atc', '<span class="m-atc"></span>', 'Austin Transitional Center', 'State halfway house'],
-  ['schools', '<svg class="m-star" style="width:20px;height:20px" viewBox="-12 -12 24 24" aria-hidden="true"><path d="M0,-10.5 L2.47,-3.4 L9.99,-3.24 L4,1.3 L6.17,8.5 L0,4.2 L-6.17,8.5 L-4,1.3 L-9.99,-3.24 L-2.47,-3.4Z" fill="#ffffff" stroke="#8e8171" stroke-width="1.6" stroke-linejoin="round"/></svg>', 'Selected schools', 'AISD campuses within 1 mi of Current and New Sunrise'],
+  ['schools', '<svg class="m-star" style="width:20px;height:20px" viewBox="-12 -12 24 24" aria-hidden="true"><path d="M0,-10.5 L2.47,-3.4 L9.99,-3.24 L4,1.3 L6.17,8.5 L0,4.2 L-6.17,8.5 L-4,1.3 L-9.99,-3.24 L-2.47,-3.4Z" fill="#ffffff" stroke="#8e8171" stroke-width="1.6" stroke-linejoin="round"/></svg>', 'Local schools', 'AISD campuses within 1 mi of Current and New Sunrise'],
   ['transit', '<svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="4.5" fill="#f7c9a2" stroke="#36302a" stroke-opacity=".55" stroke-width="1"/></svg>', 'Transportation', 'CapMetro bus stops within 1 mi of Current and New Sunrise, and the Oltorf overpass (zoom in to see)'],
   ['parks', '<span style="display:block;width:16px;height:12px;background:#a9c08f;border:1.5px solid #5f7d4f;border-radius:3px"></span>', 'Parks and greenbelts', 'City parks in District 3, next to New Sunrise, and within 1 mi of Current Sunrise'],
   ['rings', '<svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#b5532b" stroke-opacity=".5"/><circle r="5" fill="none" stroke="#b5532b" stroke-opacity=".75"/><circle r="7.5" cx="3" cy="3" fill="none" stroke="#5a9fd4" stroke-opacity=".8"/></svg>', 'Distance from the Sunrise sites', 'Rust: 1 mi and 2 mi from New Sunrise. Light blue: 1 mi from Current Sunrise'],
@@ -1499,7 +1499,7 @@ const SECTIONS = [
   ['Planned navigation center', byKind('center'), p => 'D' + p.d],
   ['Service sites', byKind('service'), p => 'D' + p.d],
   ['Supportive housing', byKind('psh').sort((a, b) => a.name.localeCompare(b.name)), p => p.d ? 'D' + p.d : '—'],
-  ['Selected schools', byKind('school'), p => 'D' + p.d],
+  ['Local schools', byKind('school'), p => 'D' + p.d],
   ['Other', [...byKind('atc'), ...byKind('original')], p => 'D' + p.d],
 ];
 $('#sites').innerHTML = SECTIONS.map(([h, arr, right]) => `<h3>${h}</h3><ul>${arr.map(p => `<li><button type="button" data-id="${p.id}">${esc(p.name)}<span>${right(p)}</span></button></li>`).join('')}</ul>`).join('')
